@@ -1,0 +1,122 @@
+NO TIME OPTIMIZATIONS
+100 iterations 
+31.507s | 31.361s | 30.514s | 32.450s
+
+500 iterations
+2m35.827s | 2m34.039s
+avg: 2m34.933s
+
+1000 iterations
+5m11.196s
+
+10000 iterations
+51mXXs | 
+
+OPTIMIZATION 1 
+500 iterations 
+2m31.431s | 2m31.982s | 2m30.399s
+avg: 2m31.271s
+
+OPTIMIZATION 2
+500 iterations 
+1m43.333s | 1m42.613s | 1m43.386s
+avg: 1m43.111s
+
+OPTIMIZATION 3
+1m18.902s | 1m18.876s | 1m19.655s
+avg: 1m19.078s
+
+OPTIMIZATION 4
+1m7.357s | 1m8.557s | 1m7.500s
+avg: 1m7.805s
+
+OPTIMIZATION 5
+1m5.580s | 1m6.262s | 1m5.370s
+avg: 1m5.737s
+
+OPTIMIZATION 6
+1m6.243s | 1m5.897s | 1m6.129s
+avg: 1m6.090s
+
+OPTIMIZATION 7 (ignore)
+1m5.708s | 
+
+OPTIMIZATION 8
+0m53.464s | 0m52.999s | 0m53.263s
+avg: 53.242s
+
+OPTIMIZATION 9
+0m31.873s | 0m31.989s | 0m31.547s
+avg: 31.803s
+
+OPTIMIZATION 10
+0m30.888s | 0m31.031s | 0m30.908s
+avg: 30.942s
+
+OPTIMIZATION 11
+27.840s | 27.573s | 27.900s
+avg: 27.738s
+
+OPTIMIZATION 12
+25.717s | 25.278s | 25.447s
+avg: 25.481s
+
+FIX 1
+50000 iterations 
+47m36.469s
+
+TEST 1
+Before
+50000 iterations
+10m17.524s
+
+OPTIMIZATION 1:
+Reduce sleep time in wordlesolver.py from 0.03 to 0.02
+Registered around 3.662s decrease in average time
+
+OPTIMIZATION 2:
+Reduce sleep time in solver.py from 0.05 to 0.03
+48.160s decrease
+
+OPTIMIZATION 3:
+Reduce sleep time in solver.py from 0.03 to 0.02
+24.033s decrease
+
+OPTIMIZATION 4:
+Reduce sleep time in solver.py from 0.02 to 0.015
+11.273s decrease
+
+OPTIMIZATION 5:
+Reduce sleep time in wordlesolver.py from 0.02 to 0.015
+2.068s decrease
+
+OPTIMIZATION 6:
+Moved choose_word.py to inside wordle.py and removed the need to call the process through main.py (now goes directly to wordle.py)
+0.353s increase
+
+OPTIMIZATION 7: (ignore)
+Reworked the word choosing logic, by removing the need to iterate the whole dictionary to then choose a word
+
+OPTIMIZATION 8:
+Fixed and reworked the concurrent logic. Removed the sleep in wordlesolver.py
+12.848s decrease
+
+OPTIMIZATION 9:
+Adjusted the sleep timers (from 0.1 to 0.001 or 0.002 in one of them)
+21.439s decrease
+
+OPTIMIZATION 10:
+Removed pointless prints
+0.861s decrease
+
+OPTIMIZATION 11:
+Adjusted sleep timers (from 0.005 to 0.003 and from 0.015 to 0.013) and removed more prints
+3.204s decrease
+
+OPTIMIZATION 12:
+Combined two loops into just one in solver.py
+2.257s decrease
+
+FIX 1 
+Increased sleep times slightly to prevent bugs, also enabled a few prints
+~5m increase over 50000 iterations (estimate)

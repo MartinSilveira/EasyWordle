@@ -1,0 +1,27 @@
+DONE I NEED TO FIX EVERYTHING RELATED TO PATHS
+
+DONE make a file that keeps all constants and then import it into other files
+make a file with repeated functions
+turn repeated code into functions
+comment and organize the code with constants
+
+priority:
+do stats_updater.py 
+make it so that once wordle_solver is finished, it executes prob_updater.py and stats_updater.py
+redo/reuse the prob_finder_w_dups.py (and without dups) into the prob_finder.py
+after, dont forget to change the probability file from letter_probs_5lV2.txt to probs.txt
+
+for testing, create a new stats file to output to (maybe stats2.txt) and duplicate stats_total.txt and name it stats_14nov.txt
+to indicate those are just the stats until today's probability change
+keep updating stats_total.txt but for comparison purposes, use stats2.txt and stats_14nov.txt 
+(try to run 50000 iterations for stats2.txt for consistency)
+then see if the probability change improved or not the stats (in particular, the success rate)
+
+automate this comparison (meaning, the wordle_solver chooses by itself which of the probability files to use based on the old vs new success rate)
+i can run multiple of these comparisons for a while and the wordle_solver will choose the best probabilities to use from that time period
+
+test every possible weight combination from [0.00 1.00] (0% and 100%) to [1.00 0.00]
+automate the new weight choosing based on the stats, just like before
+best weights for most success rate will be the ones the wordle_solver chooses at the end
+
+implement the logic of using words with every letter that hasnt been found yet
