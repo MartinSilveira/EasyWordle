@@ -1,4 +1,4 @@
-from others.config import *
+from sources.others.config import *
 
 #this program finds the probabilities for each word based on the probs.txt file
 

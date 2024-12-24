@@ -65,10 +65,30 @@ FIX 1
 50000 iterations 
 47m36.469s
 
-TEST 1
-Before
-50000 iterations
-10m17.524s
+OPTIMIZATION 13
+21.779s | 21.476s | 21.891s
+avg: 21.715s
+
+OPTIMIZATION 14
+17.535s | 17.422s | 17.612s
+avg: 17.523s
+50000 iterations - 29m2.308s
+
+OPTIMIZATION 15
+14.328 | 14.291s | 14.336s
+avg: 14.316s
+50000 iterations - 23m52.600s
+
+OPTIMIZATION 16
+13.847s | 13.965s | 13.866s
+avg: 13.893s
+50000 iterations - 23m7.948s
+
+FIX 2
+14.029s | 14.075s | 14.121s
+avg: 14.075s
+50000 iterations - 23m27.480s
+
 
 OPTIMIZATION 1:
 Reduce sleep time in wordlesolver.py from 0.03 to 0.02
@@ -113,6 +133,7 @@ OPTIMIZATION 11:
 Adjusted sleep timers (from 0.005 to 0.003 and from 0.015 to 0.013) and removed more prints
 3.204s decrease
 
+
 OPTIMIZATION 12:
 Combined two loops into just one in solver.py
 2.257s decrease
@@ -120,3 +141,97 @@ Combined two loops into just one in solver.py
 FIX 1 
 Increased sleep times slightly to prevent bugs, also enabled a few prints
 ~5m increase over 50000 iterations (estimate)
+
+OPTIMIZATION 13:
+Switched to Desktop PC
+3.766s decrease (6.3m decrease over 50000 iterations)
+
+OPTIMIZATION 14:
+Adapted sleep timers to the Desktop PC, removed some prints and put 3 "open" outside of loops
+4.192s decrease (7m decrease over 50000 iterations)
+
+OPTIMIZATION 15:
+Redesigned the whole solver algorithm from scratch with a more efficient approach, also decreased a lot the sleep timers since the new algo allowed it
+3.207s decrease (5m17s decrease over 50000 iterations)
+
+OPTIMIZATION 16:
+Removed sleep timers all together and all imports related
+0.423s decrease (45s decrease over 50000 iterations)
+
+FIX 2
+Solved some issues with the solver algorithm that caused an error that lead to the solver exiting early, hence the increased time
+0.182s increase (18s increase over 50000 iterations)
+
+
+
+
+
+
+
+
+
+
+
+5000 iterations
+NO NON USED LETTERS ALGORITHM: 83.24% 4.4200  83.56% 4.4428 (i think something is wrong, it's around 1% lower than it should be )
+
+>= 0: (not updated, now its 93.73%)
+90.12% 4.6197 90.78% 4.6385
+with 50000 iterations, 90.20% solve rate, 4.6227 avg attempts, 1 error, 33m35.198s
+
+>= 1:
+GREEN YELLOW 92.21% 4.5542
+GREEN ...
+
+
+>= 4:
+GREEN YELLOW 84.34% 4.7044
+
+
+
+
+NEW FIX: (i was using the testing to find words with no duplicate letters wrong)
+2000 iterations:
+93.40% 4.5066
+
+20000 iterations
+93.42% 4.5166
+
+
+IMPROVEMENT
+prioritizes guessing words in the non-used-letters-alg that only have letters present in the remaining possible words
+
+12972 iterations
+len(set(word) & extra_letters):
+93.73% 4.4966
+
+
+WEIGHT testing
+0.0, 1.0
+90.50% 4.6709
+
+0.1, 0.9
+93.15% 4.5378
+
+0.3, 0.7
+93.73% 4.4966
+
+0.5, 0.5 
+93.73% 4.4975 
+
+0.7, 0.3
+93.75% 4.4970 8m44.337s
+
+0.8, 0.2 
+93.76% 4.4968 8m58.923s
+
+0.9, 0.1
+93.78% 4.4969 9m16.182s
+
+1.0, 0.0
+93.78% 4.4971 8m13.977s 8m42.169s
+
+
+ 
+
+

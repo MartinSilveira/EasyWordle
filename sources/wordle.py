@@ -1,15 +1,34 @@
-import time
+#import time
 from termcolor import colored
 import random
 from others.config import *
 
-index = random.randint(1, MAX)
-with open(WORDLE_DATABASE, "r") as words_file:
-    for _ in range(1, index + 1):
-        word = words_file.readline()
+if TEST_MODE_ENABLED:
+    with open("iters.txt", "r") as iters:
+        iter = int(iters.readline().strip())
 
-correct_word = word.strip()
-print(f"Correct Word: {correct_word}")
+    with open("iters.txt", "w") as iters:
+        iters.write(f"{iter + 1}")
+
+    #iter = ---
+    index = random.randint(iter, iter)
+    with open(WORDLE_DATABASE, "r") as words_file:
+        for _ in range(1, index + 1):
+            word = words_file.readline()
+
+else:
+    index = random.randint(1, MAX)
+    with open(WORDLE_DATABASE, "r") as words_file:
+        for _ in range(1, index + 1):
+            word = words_file.readline()
+
+if CUSTOM_WORD == "":
+    correct_word = word.strip()
+else:
+    correct_word = CUSTOM_WORD
+
+if PRINTS_ENABLED:
+    print(f"Correct Word: {correct_word}")
 
 with open(WORDLE_PIPE_PATH, "w") as wordle_pipe:
     wordle_pipe.write("waiting for solver")
@@ -17,13 +36,17 @@ with open(WORDLE_PIPE_PATH, "w") as wordle_pipe:
 output = ""
 solved = False
 for attempt in range(1, N_ATTEMPTS + 1):
-    while True:
-        with open(WORDLE_PIPE_PATH, "r") as wordle_pipe:
+    with open(WORDLE_PIPE_PATH, "r") as wordle_pipe:
+        while True:
             wordle_in = wordle_pipe.readline().strip()
-        if wordle_in == "waiting for solver" or wordle_in == output or wordle_in == "":  #espera pela palavra guessed do solver
-            time.sleep(0.00035)
-        else:
-            break
+            wordle_pipe.seek(0)
+            if wordle_in in ["waiting for solver", "", output]:  #espera pela palavra guessed do solver
+                #time.sleep(PC_SLEEPTIME1)
+                continue
+            elif wordle_in == "EXIT":
+                exit()
+            else:
+                break
 
     colours = []
     correct_letters = 0
@@ -48,21 +71,26 @@ for attempt in range(1, N_ATTEMPTS + 1):
             else:
                 colours[i] = GREY
 
+    if correct_letters == N_LETTERS:
+        with open(WORDLE_PIPE_PATH, "w") as wordle_pipe:
+            wordle_pipe.write("Wordle Solved!\n")    
+
+        if PRINTS_ENABLED:
+            print(colored(wordle_in, "white", "on_green"))      #removing both of these prints saves around 1 second over 500 iterations
+            print(f"Wordle Solved!\nAttempts Taken: {attempt}")
+        
+        solved = True
+        break
+
     output = "".join([f"{wordle_in[i]}{colours[i]}" for i in range(N_LETTERS)])
     with open(WORDLE_PIPE_PATH, "w") as wordle_pipe:
         wordle_pipe.write(output + "\n")
 
-    if correct_letters == N_LETTERS:
-        with open(WORDLE_PIPE_PATH, "w") as wordle_pipe:
-            wordle_pipe.write("Wordle Solved!\n")    
-        print(colored(wordle_in, "white", "on_green"))      #removing both of these prints saves around 1 second over 500 iterations
-        print(f"Wordle Solved!\nAttempts Taken: {attempt}")
-        solved = True
-        break
-
 with open(RESULTS_PATH, "w") as results:
     if solved == False:
         attempt = 0
+        with open("words_to_fix.txt", "a") as words_to_fix:
+            words_to_fix.write(f"{correct_word}\n")
     results.write(f"{correct_word}\n{attempt}\n")
 
 

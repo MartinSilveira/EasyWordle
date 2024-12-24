@@ -1,3 +1,44 @@
+- Clean the code
+- Comment the code
+- Turn code into functions
+- Remove extra files
+- See word by word in words_to_fix how i can improve the algorithm
+- Automate testing weights
+- Do new probs.txt finder and see if the solve rate improves with the original version of probs.txt compared to the current one
+- Automate everything so that if it's the first time running the program, it finds the new probs and most probable words, does a new stats file, etc 
+- Make a Graphical User Interface
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OLD
+
+IMPORTANT
+since i have a list of the possible words, i can try to iterate through that list, find the frequency of each letter
+that i still havent used, and then make a word that contains the most frequent letters and higher probability letters
+(if possible, without any used letters, but if necessary, include the letters i already know are right)
+check 'harry' to see better how it would work
+or check 'swear'
+
+also, in the non used letters algorithm, the word without any used letters should just include letters that are
+still in the possible words, to avoid it using letters that arent even in the possible words
+
 DONE I NEED TO FIX EVERYTHING RELATED TO PATHS
 
 DONE make a file that keeps all constants and then import it into other files
@@ -6,8 +47,8 @@ turn repeated code into functions
 comment and organize the code with constants
 
 priority:
-do stats_updater.py 
-make it so that once wordle_solver is finished, it executes prob_updater.py and stats_updater.py
+DONE do stats_updater.py 
+DONE make it so that once wordle_solver is finished, it executes prob_updater.py and stats_updater.py
 redo/reuse the prob_finder_w_dups.py (and without dups) into the prob_finder.py
 after, dont forget to change the probability file from letter_probs_5lV2.txt to probs.txt
 

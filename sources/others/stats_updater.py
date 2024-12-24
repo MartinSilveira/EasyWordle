@@ -50,6 +50,6 @@ wordles_solved += new_wordles_solved
 for i in range(0, 6):
     attempts_freq[i] += new_attempts_freq[i]
 
-write_to_stats(iterations, avg_attempts, wordles_solved, attempts_freq)
+write_to_stats(STATS_PATH, iterations, avg_attempts, wordles_solved, attempts_freq)
 
 

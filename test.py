@@ -1,28 +1,29 @@
-import subprocess
+from sources.others.config import *
+import numpy as np
 
-# Start subprocesses
-process1 = subprocess.Popen(["python3", "proc1.py"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
-process2 = subprocess.Popen(["python3", "proc2.py"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
+words = np.array(["example"] * 10000, dtype="U10")
 
-for i in range(1, 5000):
-    print(f"Iteration {i}")
+for iter in range(10000000):
+    print(iter)
+    # Append operation (efficient in Python lists)
+    words_list = words.tolist()
 
-    # Signal the subprocesses to start their operation and get the outputs
-    process1.stdin.write("START\n")
-    process1.stdin.flush()
-    process2.stdin.write("START\n")
-    process2.stdin.flush()
+    words_list.append("newword")
 
-    # Wait for responses from both subprocesses
-    output1 = process1.stdout.readline().strip()
-    output2 = process2.stdout.readline().strip()
+    # Copy operation
+    words = np.array(words_list, dtype="U10")
+    new_words = words.copy()
 
-    print(output1)
-    print(output2)
-
-#inside loop 5000 iterations 1m3.395s
 #outside loop 5000 iterations 0m0.189s
 
 #inside loop 50000 iterations 10m17s
 #outside loop 50000 iterations 1.600s
 #around 1m3s decrease each 5000 iterations
+
+#novos dados
+#inside 1000 - 0m9.777s
+#inside 10000 - 1m37.872s
+
+#outside 10000 - 0m14.497s multiprocessing simple
+#outside 10000 - 0.473s multiprocessing complex
+

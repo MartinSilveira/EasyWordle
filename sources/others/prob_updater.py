@@ -1,4 +1,5 @@
 from sources.others.config import *
+from sources.others.functions import *
 #this program takes the probs.txt and prob2.txt and combines it into probs.txt
 
 letter_probs = [0] * ALPHABET_SIZE
@@ -53,6 +54,7 @@ for i in range(0, ALPHABET_SIZE):
         position_probs[i][j] = ((position_probs[i][j] * total_iterations) + (new_position_probs[i][j] * N_ITERATIONS)) / (total_iterations + N_ITERATIONS)
 
 #writes the results to the probs.txt file
+#write_to_probs(PROBS_PATH, letter_probs, position_probs, total_iterations + N_ITERATIONS)
 with open(PROBS_PATH, "w") as probs:
     probs.write("Letter Probabilities:\n")
     for i in range(len(letter_probs)):
