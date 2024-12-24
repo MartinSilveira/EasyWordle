@@ -1,17 +1,11 @@
 Number of Iterations:
-12972
+1
 
 Average Attempts:
-4.4973
+0.0000
 
-Wordles Solved/Unsolved: (93.78%)
-12165
-807
+Wordles Solved/Unsolved: (0.00%)
+0
+1
 
 Attempts Frequency:
-1: 1 (0.01%)
-2: 1 (0.01%)
-3: 115 (0.95%)
-4: 7088 (58.27%)
-5: 3737 (30.72%)
-6: 1223 (10.05%)

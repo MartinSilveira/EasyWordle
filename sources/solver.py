@@ -51,8 +51,8 @@ for attempt in range(1, N_ATTEMPTS + 1):
                 
 
     #e se, ao invés de devolver todas as palavras possíveis, encontra e devolve logo a primeira palavra e não tem de procurar o resto da lista
-    #if DEBUG_ENABLED:
-        #print(wordle_out)
+    if DEBUG_ENABLED:
+        print(wordle_out)
 
     for i in range(N_LETTERS):    #exclui as letras usadas na última tentativa
         letter = wordle_out[2*i]
@@ -63,7 +63,6 @@ for attempt in range(1, N_ATTEMPTS + 1):
 
     #se já acertou 3 ou mais letras e tem mais palavras possíveis que tentativas restantes e não está na última tentativa
     if USE_NON_USED_LETTERS_ALG:
-           #literally worthless verification unless it's for testing
         extra_letters = set()
         if attempt > 1:
             for word in all_words:
@@ -124,8 +123,8 @@ for attempt in range(1, N_ATTEMPTS + 1):
             filtered_words.append(word)
 
     all_words = filtered_words
-    #if DEBUG_ENABLED:
-        #print(all_words)
+    if DEBUG_ENABLED:
+        print(all_words)
     
     if word_to_try == None:
         try:
@@ -138,8 +137,8 @@ for attempt in range(1, N_ATTEMPTS + 1):
 
     else:
         word = word_to_try
-        #if DEBUG_ENABLED:
-            #print(word_to_try)
+        if DEBUG_ENABLED:
+            print(word_to_try)
 
 
 
