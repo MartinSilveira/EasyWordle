@@ -10,6 +10,28 @@
 
 
 
+if it's like attempt 5 and there's still more than X words (X could be like 3), then in that attempt
+he does that thing where it tries to include 2 or 3 extra letters in a word and the rest can be used letters (green or yellow ones especially)
+and hopes to remove the wrong letters or get the right ones in the last attempt
+
+
+Examples of algorithm
+cares
+c0a0r0e2s0
+ponty
+p0o1n0t1y0
+A este ponto ainda só tenho 2 letras verdes e 1 amarela, por isso tento outra palavra sem letras usadas
+build
+b0u0i0l1d0
+2 letras verdes e 2 amarelas, provavelmente não consigo acertar, mas já não consigo fazer palavras sem letras usadas
+ou começo a adivinhar da lista de palavras possíveis
+ou escolho uma palavra apenas com as letras amarelas noutras posições que não as atuais amarelas e que pode incluir letras usadas (mas idealmente não)
+neste caso, não vale a pena usar letras verdes, apenas se estritamente necessário
+se não houver letras amarelas, uso tipo 3-4 letras não usadas e 1-2 usadas (isto pode ser calculado dinamicamente)
+
+
+
+
 
 
 

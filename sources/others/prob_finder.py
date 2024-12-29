@@ -29,9 +29,10 @@ with open(WORDS_PATH, "r") as words_file:
         position = 0
         score = 0
         for letter in word.strip():
-            score += position_probs[ord(letter) - 97][position]
+            score += letter_probs[ord(letter) - 97] * LETTER_PROBS_WEIGHT + position_probs[ord(letter) - 97][position] * LETTER_POS_WEIGHT
+            #score += position_probs[ord(letter) - 97][position]
             position += 1
-        score = score * SCORE_WEIGHT + letter_probs[ord(letter) - 97] * LETTER_PROBS_WEIGHT
+        #score = score * SCORE_WEIGHT + letter_probs[ord(letter) - 97] * LETTER_PROBS_WEIGHT
         scores[word.strip()] = score
 
 scores_sorted = dict(sorted(scores.items(), key=lambda item: item[1], reverse=True))

@@ -1,14 +1,13 @@
-#import time
 from termcolor import colored
 import random
 from others.config import *
 
 if TEST_MODE_ENABLED:
-    with open("iters.txt", "r") as iters:
-        iter = int(iters.readline().strip())
+    with open(ITERS_PATH, "r") as iters_file:
+        iter = int(iters_file.readline().strip())
 
-    with open("iters.txt", "w") as iters:
-        iters.write(f"{iter + 1}")
+    with open(ITERS_PATH, "w") as iters_file:
+        iters_file.write(f"{iter + 1}")
 
     #iter = ---
     index = random.randint(iter, iter)
@@ -41,7 +40,6 @@ for attempt in range(1, N_ATTEMPTS + 1):
             wordle_in = wordle_pipe.readline().strip()
             wordle_pipe.seek(0)
             if wordle_in in ["waiting for solver", "", output]:  #espera pela palavra guessed do solver
-                #time.sleep(PC_SLEEPTIME1)
                 continue
             elif wordle_in == "EXIT":
                 exit()
@@ -89,9 +87,9 @@ for attempt in range(1, N_ATTEMPTS + 1):
 with open(RESULTS_PATH, "w") as results:
     if solved == False:
         attempt = 0
-        with open("words_to_fix.txt", "a") as words_to_fix:
-            words_to_fix.write(f"{correct_word}\n")
+        if WRITE_UNSOLVED_WORDS:
+            with open("words_to_fix.txt", "a") as words_to_fix:
+                words_to_fix.write(f"{correct_word}\n")
     results.write(f"{correct_word}\n{attempt}\n")
-
 
 
