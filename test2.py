@@ -13,52 +13,46 @@ with open(WORD_NODUPS_PATH, "r") as word_file:
 used_letters = set(word)
 words_non_used_letters = all_words
 
-#26 listas com 5 listas cada. para cada letra, mostra as posições onde é amarela
-yellow_letters = [["" for _ in range(N_LETTERS)] for _ in range(ALPHABET_SIZE)]
-
-#26 listas com 5 listas cada. para cada letra, mostra as posições onde é verde
-green_letters = [["" for _ in range(N_LETTERS)] for _ in range(ALPHABET_SIZE)]
-
-grey_letters = set()
-
 for attempt in range(1, N_ATTEMPTS + 1):
-    print(f"Guessed Word: {word} in Attempt {attempt}")
+    if PRINTS_ENABLED:
+        print(f"Guessed Word: {word} in Attempt {attempt}")
 
-    words_non_used_letters.remove(word)
-    
     #wordle_out é do formato a0b1c2d0e1 (os números variam entre {0, 2} e indicam a cor da letra antes)
     wordle_out = input("Wordle Out:\n")
-    if wordle_out == "solved" or attempt == N_ATTEMPTS:
+    if wordle_out == "solved":
         exit()
 
-    #encontra letras que não foram usadas apenas nas palavras possíveis
-    extra_letters = set()
-    
     word_to_try = None
     first_word = None
 
-    if (N_ATTEMPTS - attempt + 1) < len(all_words) and attempt + 1 < N_ATTEMPTS:
-        for word in words_non_used_letters:
-            if attempt >= N_ATTEMPTS - 1 and len(all_words) >= 3: #se for a penúltima tentativa e tiver mais de 3 palavras possíveis ainda 
-                if len(set(word) & grey_letters) == 0:
-                    for yellow_letter in yellow_letters:
-                        for pos in yellow_letter:
-                            pass
-                    word_to_try = word
-                    break
+    extra_letters = set()
+    for word in all_words:
+        for letter in word:
+            if letter not in used_letters:
+                extra_letters.add(letter)
 
-            elif not (set(word) & used_letters) and len(set(word)) == N_LETTERS: #se não houver nenhuma letra já usada na palavra nem letras repetidas
+    if DEBUG_ENABLED:
+        print("Extra Letters: ", extra_letters)
+
+    if (N_ATTEMPTS - attempt + 1) < len(all_words) and attempt < N_ATTEMPTS - 1:
+        for word in words_non_used_letters:
+            if not (set(word) & used_letters) and len(set(word)) == N_LETTERS: #se não houver nenhuma letra já usada na palavra nem letras repetidas
                 if first_word == None:
                     first_word = word
                 
                 if (set(word) & extra_letters): #se na palavra só existirem apenas as letras que estão nas palavras possíveis
                     word_to_try = word
                     break
-                else:
-                    word_to_try = first_word
 
+        if word_to_try == None:
+            for word in all_words:
+                if len(set(word) & extra_letters) >= 3:
+                    word_to_try = word
+                    break
+
+        if word_to_try == None:
+            word_to_try = first_word
         
-    
     filtered_words = []
     for word in all_words:
         remove = False
@@ -66,7 +60,6 @@ for attempt in range(1, N_ATTEMPTS + 1):
             letter = wordle_out[2*i]
             colour = wordle_out[2*i + 1]
             if (colour is GREY):
-                grey_letters.add(letter)
                 if letter in word:
                     if marked_as(letter, wordle_out, [GREEN, YELLOW]) == 0: #se a letra é grey e a letra está na palavra e não está marcada a verde noutro lado, remove a palavra
                         remove = True                                                                                      #ou se é amarela e a letra não está na palavra
@@ -82,13 +75,11 @@ for attempt in range(1, N_ATTEMPTS + 1):
                                 break
                     
             elif (colour is YELLOW):
-                yellow_letters[ord(letter) - 97][i]
                 if (letter == word[i] or letter not in word) or n_dups_in_word(letter, wordle_out, i) > n_instances(letter, word):
                     remove = True                                                     
                     break 
 
             elif (colour is GREEN):
-                yellow_letters[ord(letter) - 97][i]
                 if letter != word[i]: #se a letra é verde e não está naquela posição da palavra, remove a palavra
                     remove = True
                     break
@@ -99,10 +90,9 @@ for attempt in range(1, N_ATTEMPTS + 1):
     all_words = filtered_words
     if DEBUG_ENABLED:
         print(all_words)
-    
+                               #if there's more attempts left than possible words
     if word_to_try == None or (N_ATTEMPTS - attempt) > len(all_words):
         word = all_words[0]
-
     else:
         word = word_to_try
 
@@ -113,11 +103,3 @@ for attempt in range(1, N_ATTEMPTS + 1):
 
     if DEBUG_ENABLED:
         print("Used Letters: ", used_letters)
-
-    for wordings in all_words:
-        for letter in wordings:
-            if letter not in used_letters:
-                extra_letters.add(letter)
-
-    if DEBUG_ENABLED:
-        print("Extra Letters: ", extra_letters)
