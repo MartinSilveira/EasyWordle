@@ -1,5 +1,5 @@
-from sources.others.config import *
-from sources.others.functions import *
+from src.config.config import *
+from src.utils.functions.functions import *
 
 attempts_freq = [0] * N_ATTEMPTS
 with open(STATS_PATH, "r") as stats_file:

@@ -1,6 +1,6 @@
+from src.config.config import *
 from termcolor import colored
 import random
-from others.config import *
 
 if TEST_MODE_ENABLED:
     with open(ITERS_PATH, "r") as iters_file:
@@ -48,23 +48,22 @@ for attempt in range(1, N_ATTEMPTS + 1):
 
     colours = []
     correct_letters = 0
-    correct_word_tracker = list(correct_word)  # For tracking unused letters in the correct word
-    user_word_marked = [False] * N_LETTERS    # For tracking matched letters in the user's guess
+    correct_word_tracker = list(correct_word) 
+    user_word_marked = [False] * N_LETTERS   
 
     for i in range(N_LETTERS):
         if wordle_in[i] == correct_word[i]:
             colours.append(GREEN)
-            correct_word_tracker[i] = None  # Mark this letter as used
-            user_word_marked[i] = True      # Mark this letter as matched (green)
+            correct_word_tracker[i] = None 
+            user_word_marked[i] = True    
             correct_letters += 1
         else:
-            colours.append(None)  # Placeholder for now
+            colours.append(None) 
 
     for i in range(N_LETTERS):
-        if colours[i] is None:  # Only process if not already marked as green
+        if colours[i] is None:
             if wordle_in[i] in correct_word_tracker:
                 colours[i] = YELLOW
-                # Mark the first occurrence of this letter as used
                 correct_word_tracker[correct_word_tracker.index(wordle_in[i])] = None
             else:
                 colours[i] = GREY
@@ -88,7 +87,7 @@ with open(RESULTS_PATH, "w") as results:
     if solved == False:
         attempt = 0
         if WRITE_UNSOLVED_WORDS:
-            with open("words_to_fix.txt", "a") as words_to_fix:
+            with open(WORDS_TO_FIX_PATH, "a") as words_to_fix:
                 words_to_fix.write(f"{correct_word}\n")
     results.write(f"{correct_word}\n{attempt}\n")
 

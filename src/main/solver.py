@@ -1,6 +1,5 @@
-
-from sources.others.config import *
-from sources.others.functions import *
+from src.config.config import *
+from src.utils.functions.functions import *
 
 #places every word in the wordle dictionary in a list
 with open(WORD_DUPS_PATH, "r") as all_words_file:
@@ -14,13 +13,41 @@ used_letters = set(word)
 words_non_used_letters = all_words
 
 for attempt in range(1, N_ATTEMPTS + 1):
+    with open(WORDLE_PIPE_PATH, "r") as wordle_pipe:
+        while True:
+            status = wordle_pipe.readline().strip()
+            wordle_pipe.seek(0)
+            if status == "Wordle Solved!":
+                exit()
+            elif (attempt == 1 and status != "waiting for solver") or (attempt > 1 and len(status) != WORDLE_OUT_LEN):
+                continue
+            else:
+                break
+
+    with open(WORDLE_PIPE_PATH, "w") as wordle_pipe:
+        wordle_pipe.write(word)
+    words_non_used_letters.remove(word)
+
     if PRINTS_ENABLED:
         print(f"Guessed Word: {word} in Attempt {attempt}")
 
+    
     #wordle_out é do formato a0b1c2d0e1 (os números variam entre {0, 2} e indicam a cor da letra antes)
-    wordle_out = input("Wordle Out:\n")
-    if wordle_out == "solved":
-        exit()
+    with open(WORDLE_PIPE_PATH, "r") as wordle_pipe:
+        while True:
+            wordle_out = wordle_pipe.readline().strip()
+            wordle_pipe.seek(0)
+            if wordle_out in [word, ""]:
+                continue
+            elif wordle_out == "Wordle Solved!" or attempt == N_ATTEMPTS:
+                exit()
+            else:
+                break
+
+    #e se, ao invés de devolver todas as palavras possíveis, encontra e devolve logo a primeira palavra e não tem de procurar o resto da lista
+    #pra fazer isto é preciso ter algumas listas que guardam as posições certas e as letras e etc
+    if DEBUG_ENABLED:
+        print(wordle_out)
 
     word_to_try = None
     first_word = None
@@ -103,3 +130,14 @@ for attempt in range(1, N_ATTEMPTS + 1):
 
     if DEBUG_ENABLED:
         print("Used Letters: ", used_letters)
+
+
+
+
+
+
+
+
+
+
+

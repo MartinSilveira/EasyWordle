@@ -1,6 +1,6 @@
-from sources.others.config import *
-
 #this program finds the probabilities for each word based on the probs.txt file
+
+from src.config.config import *
 
 letter_probs = [0] * ALPHABET_SIZE
 position_probs = [[0 for _ in range(N_LETTERS)] for _ in range(ALPHABET_SIZE)]
@@ -24,7 +24,7 @@ with open(PROBS_PATH, "r") as probs_file:
             step += 9
 
     
-with open(WORDS_PATH, "r") as words_file:
+with open(WORDLE_DATABASE, "r") as words_file:
     for word in words_file.readlines():
         position = 0
         score = 0

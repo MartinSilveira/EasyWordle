@@ -1,5 +1,5 @@
-from sources.others.config import *
-from sources.others.functions import *
+from src.config.config import *
+from src.utils.functions.functions import *
 #this program takes the probs.txt and prob2.txt and combines it into probs.txt
 
 letter_probs = [0] * ALPHABET_SIZE

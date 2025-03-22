@@ -1,6 +1,6 @@
 import subprocess
-from sources.others.config import *
-from sources.others.functions import *
+from src.config.config import *
+from src.utils.functions.functions import *
 
 letter_freqs = [0] * ALPHABET_SIZE
 attempt_freq = [0] * N_ATTEMPTS

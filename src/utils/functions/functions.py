@@ -1,4 +1,4 @@
-from sources.others.config import *
+from src.config.config import *
 
 def read_results(attempt_freq, letter_freqs, position_freqs, wordles_solved, total, avg_attempts, iter):
     with open(RESULTS_PATH, "r") as results:

@@ -1,4 +1,4 @@
-from sources.others.config import *
+from src.config.config import *
 
 with open(WORDLE_DATABASE, "r") as wordle_file:
     wordle_dict = [line[:5] for line in wordle_file]
