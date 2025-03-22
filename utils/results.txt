@@ -1,2 +1,2 @@
-zymic
-4
+amiss
+6
